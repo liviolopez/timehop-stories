@@ -24,6 +24,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_on_story"/>
+        tools:listitem="@layout/item_on_story_image"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

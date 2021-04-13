@@ -13,7 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.liviolopez.timehopstories.R
 import com.liviolopez.timehopstories.data.local.model.Item
 import com.liviolopez.timehopstories.databinding.FragmentStoriesBinding
-import com.liviolopez.timehopstories.databinding.ItemOnStoryBinding
+import com.liviolopez.timehopstories.databinding.ItemOnStoryVideoBinding
 import com.liviolopez.timehopstories.ui._components.*
 import com.liviolopez.timehopstories.utils.Resource
 import com.liviolopez.timehopstories.utils.extensions.setGone
@@ -118,9 +118,10 @@ class StoriesFragment : Fragment(R.layout.fragment_stories), StoriesAdapter.OnIt
             appPlayer.onProgressListener = null
 
             (binding.vpStory[0] as RecyclerView).findViewHolderForAdapterPosition(position)?.let {
-                val itemStory = ItemOnStoryBinding.bind(it.itemView)
 
                 if (viewModel.itemAt(position)!!.isVideo) {
+                    val itemStory = ItemOnStoryVideoBinding.bind(it.itemView)
+
                     val progressListener = this
 
                     appPlayer.apply {

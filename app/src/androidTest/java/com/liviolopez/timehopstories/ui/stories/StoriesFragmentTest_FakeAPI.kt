@@ -64,24 +64,22 @@ class StoriesFragmentTest_FakeAPI{
             }
         }
 
+        // Layout: item_on_story_image
         Thread.sleep(500)
         onView(withId(R.id.bt_next)).perform(ViewActions.click())
         onView(withId(R.id.iv_item_picture)).check(ViewAssertions.matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.vv_item_video)).check(ViewAssertions.matches(withEffectiveVisibility(Visibility.GONE)))
 
         Thread.sleep(500)
         onView(withId(R.id.bt_next)).perform(ViewActions.click())
         onView(withId(R.id.iv_item_picture)).check(ViewAssertions.matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.vv_item_video)).check(ViewAssertions.matches(withEffectiveVisibility(Visibility.GONE)))
 
         Thread.sleep(500)
         onView(withId(R.id.bt_next)).perform(ViewActions.click())
         onView(withId(R.id.iv_item_picture)).check(ViewAssertions.matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.vv_item_video)).check(ViewAssertions.matches(withEffectiveVisibility(Visibility.GONE)))
 
+        // Layout: item_on_story_video
         Thread.sleep(500)
         onView(withId(R.id.bt_next)).perform(ViewActions.click())
-        onView(withId(R.id.iv_item_picture)).check(ViewAssertions.matches(withEffectiveVisibility(Visibility.GONE)))
         onView(withId(R.id.vv_item_video)).check(ViewAssertions.matches(withEffectiveVisibility(Visibility.VISIBLE)))
 
         onView(withId(R.id.vp_story)).check(ViewAssertions.matches(withEffectiveVisibility(Visibility.VISIBLE)))

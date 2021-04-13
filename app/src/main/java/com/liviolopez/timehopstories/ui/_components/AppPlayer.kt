@@ -14,7 +14,7 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.liviolopez.timehopstories.utils.extensions.setGone
-import com.liviolopez.timehopstories.utils.extensions.setVisible
+import com.liviolopez.timehopstories.utils.extensions.visibleIf
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
@@ -46,11 +46,7 @@ class AppPlayer(context: Context) {
             override fun onLoadingChanged(isLoading: Boolean) {
                 super.onLoadingChanged(isLoading)
 
-                if(isLoading && !player.isPlaying) {
-                    loadingBar?.setVisible()
-                } else {
-                    loadingBar?.setGone()
-                }
+                loadingBar?.visibleIf { isLoading && !player.isPlaying }
             }
         })
     }
