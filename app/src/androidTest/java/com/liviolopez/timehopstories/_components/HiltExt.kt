@@ -32,13 +32,15 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
     factory: FragmentFactory,
     crossinline action: Fragment.() -> Unit = {}
 ) {
+    val THEME_EXTRAS_BUNDLE_KEY = "androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity.THEME_EXTRAS_BUNDLE_KEY"
+
     val startActivityIntent = Intent.makeMainActivity(
         ComponentName(
             ApplicationProvider.getApplicationContext(),
             HiltActivityTest::class.java
         )
     ).putExtra(
-        "androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity.THEME_EXTRAS_BUNDLE_KEY",
+        THEME_EXTRAS_BUNDLE_KEY,
         themeResId
     )
 

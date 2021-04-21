@@ -6,12 +6,13 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.net.toUri
+import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.util.Util
 import com.liviolopez.timehopstories.utils.extensions.setGone
 import com.liviolopez.timehopstories.utils.extensions.visibleIf
@@ -27,7 +28,9 @@ class AppPlayer(context: Context) {
     }
 
     var player: SimpleExoPlayer = SimpleExoPlayer.Builder(context).build()
-    var dataSourceFactory: DataSource.Factory = DefaultHttpDataSourceFactory(Util.getUserAgent(context, context.packageName))
+    private var dataSourceFactory: DataSource.Factory = DefaultHttpDataSource.Factory().setUserAgent(
+        Util.getUserAgent(context, context.packageName)
+    )
 
     var currentPlayerView: PlayerView? = null
     var loadingBar: View? = null
@@ -43,8 +46,8 @@ class AppPlayer(context: Context) {
                 if(isPlaying) progressListener()
             }
 
-            override fun onLoadingChanged(isLoading: Boolean) {
-                super.onLoadingChanged(isLoading)
+            override fun onIsLoadingChanged(isLoading: Boolean) {
+                super.onIsLoadingChanged(isLoading)
 
                 loadingBar?.visibleIf { isLoading && !player.isPlaying }
             }
@@ -76,7 +79,9 @@ class AppPlayer(context: Context) {
         currentPlayerView = null
     }
 
-    private fun getVideoSource(videoUrl: String) = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(videoUrl.toUri())
+    private fun getVideoSource(videoUrl: String) = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
+        MediaItem.Builder().setUri(videoUrl.toUri()).build()
+    )
 
     fun setTrackAndPlay(playerView: PlayerView, videoUrl: String, position: Long) {
         currentPlayerView = playerView
@@ -88,7 +93,8 @@ class AppPlayer(context: Context) {
         playerView.player = player
         playerView.useController = false
 
-        player.prepare(getVideoSource(videoUrl))
+        player.setMediaSource(getVideoSource(videoUrl))
+        player.prepare()
         player.seekTo(position)
         play()
     }

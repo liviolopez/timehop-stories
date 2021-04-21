@@ -21,7 +21,7 @@ class RemoteModule {
     @Singleton
     @Provides
     fun provideOkHttpClient() = OkHttpClient.Builder()
-        .hostnameVerifier { hostname, session -> true } // <- This API has an invalid SSL or an unverified HostName, so the verification is forced to return true to avoid the SSL exception
+        .hostnameVerifier { _, _ -> true } // <- (hostname, session) This API has an invalid SSL or an unverified HostName, so the verification is forced to return true to avoid the SSL exception
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
         .build()
 
